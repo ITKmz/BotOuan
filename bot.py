@@ -18,7 +18,7 @@ with open("data/boonmathun_core.json", "r", encoding="utf-8") as file:
     core = json.load(file)
 
 # ตั้งค่า Channel ที่ให้บอทตอบ (ใส่ ID ของช่องแชท)
-ALLOWED_CHANNEL_ID = 1349123952206942321
+ALLOWED_CHANNEL_ID = os.getenv("ALLOWED_CHANNEL_ID")
 
 # กำหนด Intents สำหรับบอท
 intents = discord.Intents.default()

@@ -19,6 +19,7 @@ BotOuan is a Discord bot that interacts with users using OpenAI's GPT models.
     ```
     DISCORD_TOKEN=your_discord_token
     OPENAI_API_KEY=your_openai_api_key
+    ALLOWED_CHANNEL_ID=your_allowed_channel_id
     ```
 4. Customize the `data/boonmathun_core.json` file with your desired system prompt and unknown responses.
 
