@@ -1,4 +1,10 @@
-discord.py
+json
+random
+discord
 openai
-python-dotenv
+os
+subprocess
+dotenv
 gtts
+asyncio
+imageio_ffmpeg
