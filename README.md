@@ -15,7 +15,7 @@ BotOuan is a Discord bot that interacts with users using OpenAI's GPT models.
     ```sh
     pip install -r requirements.txt
     ```
-3. Create a `.env` file in the root directory and add your Discord token and OpenAI API key:
+3. Create a `.env` file in the root directory and add your Discord token and OpenAI API key and Allowed channel id for bots to view:
     ```
     DISCORD_TOKEN=your_discord_token
     OPENAI_API_KEY=your_openai_api_key
