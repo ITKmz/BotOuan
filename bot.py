@@ -6,7 +6,6 @@ import os
 from dotenv import load_dotenv
 from gtts import gTTS
 import asyncio
-import imageio_ffmpeg
 
 # โหลด Token จากไฟล์ .env
 load_dotenv()
@@ -29,7 +28,7 @@ intents.voice_states = True  # เพิ่ม voice intents เพื่อใ�
 client = discord.Client(intents=intents)
 
 # ✅ ใช้ FFmpeg ที่ดาวน์โหลดผ่าน imageio
-ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
+# ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
 discord.FFmpegPCMAudio.executable = ffmpeg_path
 
 # Event เมื่อบอทออนไลน์
