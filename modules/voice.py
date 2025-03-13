@@ -14,12 +14,12 @@ if not os.path.exists(ffmpeg_path):
 
 # ✅ ตรวจสอบว่า FFmpeg ใช้งานได้
 try:
-    result = subprocess.run([ffmpeg_path, "-version"], capture_output=True, text=True)
+    result = subprocess.run([ffmpeg_path, "-version"], capture_output=True, text=True, check=True)
     print(f"✅ FFmpeg found at: {ffmpeg_path}\n{result.stdout}")
 except Exception as e:
     raise RuntimeError(f"❌ FFmpeg is not working! Error: {e}")
 
-# ✅ กำหนดให้ `discord.py` ใช้ FFmpeg ที่ตรวจสอบแล้ว
+# ✅ บังคับให้ `discord.py` ใช้ FFmpeg ที่ถูกต้อง
 os.environ["FFMPEG_BINARY"] = ffmpeg_path
 discord.FFmpegPCMAudio.executable = ffmpeg_path
 
@@ -52,6 +52,6 @@ async def speak_text(voice_client, text):
     tts.save(audio_path)
 
     if not voice_client.is_playing():
-        voice_client.play(discord.FFmpegPCMAudio(audio_path))
+        voice_client.play(discord.FFmpegPCMAudio(audio_path, executable=ffmpeg_path))  # ✅ ใช้ FFmpeg พาธที่ถูกต้อง
         while voice_client.is_playing():
             await asyncio.sleep(1)
