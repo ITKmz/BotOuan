@@ -1,2 +1,20 @@
-/.env
-*.mp3
+# ❌ Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# ❌ Ignore environment variables and API keys
+.env
+
+# ❌ Ignore generated audio files
+audio/*.mp3
+audio/*.wav
+
+# ❌ Ignore virtual environment directories
+venv/
+env/
+*.venv/
+
+# ❌ Ignore log and temporary files
+*.log
+*.tmp
