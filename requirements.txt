@@ -5,6 +5,6 @@ openai
 os
 subprocess
 dotenv
-gtts
+edge-tts
 asyncio
 imageio_ffmpeg

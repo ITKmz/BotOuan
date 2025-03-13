@@ -1,7 +1,7 @@
 import os
 import discord
 import asyncio
-from gtts import gTTS
+import edge_tts
 import subprocess
 import imageio_ffmpeg
 
@@ -44,14 +44,25 @@ async def leave_voice(message):
     else:
         await message.channel.send("กุยังไม่ทันเข้าเลย ไอเวร")
 
-# ✅ ให้บอทพูด response
+# ✅ ฟังก์ชันให้บอทพูด response (Edge-TTS)
 async def speak_text(voice_client, text):
     audio_path = os.path.join(AUDIO_FOLDER, "voice.mp3")
 
-    tts = gTTS(text=text, lang="th")
-    tts.save(audio_path)
+    # ✅ ลบไฟล์เสียงเก่าถ้ามีอยู่
+    if os.path.exists(audio_path):
+        os.remove(audio_path)
 
+    # ✅ ใช้ Edge-TTS สร้างเสียงผู้ชาย
+    tts = edge_tts.Communicate(text, voice="th-TH-NiwatNeural")  # ✅ ใช้เสียงผู้ชาย
+    await tts.save(audio_path)  # ✅ ใช้ `await` เพื่อรอให้เซฟเสร็จ
+
+    # ✅ ตรวจสอบว่าไฟล์เสียงถูกสร้างขึ้น
+    if not os.path.exists(audio_path):
+        await print("❌ Error: Audio file not found")
+        return
+
+    # ✅ เล่นเสียงที่สร้างขึ้น
     if not voice_client.is_playing():
-        voice_client.play(discord.FFmpegPCMAudio(audio_path, executable=ffmpeg_path))  # ✅ ใช้ FFmpeg พาธที่ถูกต้อง
+        voice_client.play(discord.FFmpegPCMAudio(audio_path, executable=ffmpeg_path))
         while voice_client.is_playing():
             await asyncio.sleep(1)

@@ -4,9 +4,16 @@ import openai
 from modules.config import ALLOWED_CHANNEL_ID
 from modules.voice import join_voice, leave_voice, speak_text
 
-# โหลดข้อความจากไฟล์ boonmathun_core.json
-with open("data/boonmathun_core.json", "r", encoding="utf-8") as file:
+# โหลดข้อความจากไฟล์ core.json
+with open("data/core.json", "r", encoding="utf-8") as file:
     core = json.load(file)
+
+# ✅ โหลดคำสั่งจาก commands.json
+with open("data/commands.json", "r", encoding="utf-8") as file:
+    commands = json.load(file)
+
+JOIN_VOICE_COMMANDS = commands.get("join_voice", [])
+LEAVE_VOICE_COMMANDS = commands.get("leave_voice", [])
 
 # สร้างตัวแปรเก็บประวัติการคุย
 conversation_history = []
@@ -23,12 +30,12 @@ async def handle_chat(client, message):
     channel = message.channel
 
     # ✅ คำสั่งให้บอทเข้าห้องเสียง
-    if client.user in message.mentions and "เข้าดิส" in user_message:
+    if client.user in message.mentions and any(cmd in user_message for cmd in JOIN_VOICE_COMMANDS):
         await join_voice(message)
         return
 
     # ✅ คำสั่งให้บอทออกจากห้องเสียง
-    if client.user in message.mentions and "ไปได้แล้ว" in user_message:
+    if client.user in message.mentions and any(cmd in user_message for cmd in LEAVE_VOICE_COMMANDS):
         await leave_voice(message)
         return
 
