@@ -1,7 +1,7 @@
 # BotOuan
 
 BotOuan is a Discord bot that interacts with users using OpenAI's GPT models.
-
+ 
 ## Features
 
 - Responds to messages in a specific Discord channel.
